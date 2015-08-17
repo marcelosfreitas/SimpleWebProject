@@ -17,16 +17,20 @@ public class DividirServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String xstr = req.getParameter("x");
 		String ystr = req.getParameter("y");
-		double x = Double.parseDouble(xstr);
-		double y = Double.parseDouble(ystr);
 		double resultado;
 		
-		if(y == 0){
-			resultado = 0;
-		}else{
-			resultado = x / y;			
-		}
 		PrintWriter writer = resp.getWriter();
-		writer.write(String.format("Resultado da divisao %s", resultado));		
+		try{
+			double x = Double.parseDouble(xstr);
+			double y = Double.parseDouble(ystr);			
+			if(y == 0){
+				resultado = 0;
+			}else{
+				resultado = x / y;			
+			}
+			writer.write(String.format("Resultado da divisao %s", resultado));
+		}catch(Exception e){
+			writer.write(String.format("X e ou Y devem ser numericos"));
+		}
 	}
 }
